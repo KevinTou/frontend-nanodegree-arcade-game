@@ -46,7 +46,9 @@ Player.prototype.render = function() {
 // Handles the movement for the character as well as checks 
 // for boundaries
 Player.prototype.handleInput = function(playerInput) {
+    //First check is for the type of movement
     if (playerInput === 'left') {
+        //If it passes, then checks for boundaries
         if (this.x > 0 ) {
             this.x -= 50;
         }
