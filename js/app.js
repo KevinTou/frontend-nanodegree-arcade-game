@@ -1,8 +1,11 @@
 // Enemies our player must avoid
-var Enemy = function(speed) {
+var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
+    this.x = -101;
+    this.y = y;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -81,9 +84,12 @@ Player.prototype.handleInput = function(playerInput) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const allEnemies = [];
 const player = new Player();
 
+const allEnemies = [];
+for (let x = 0; x < 7; x++) {
+    allEnemies[x] = new Enemy((Math.floor(Math.random() * 3) * 80) + 60, Math.random() * 200);
+}
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
