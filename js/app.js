@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -25,12 +25,52 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Player = function() {
+    // Default position
+    this.x = 200;
+    this.y = 380;
+
+    // The image/sprite for our character
+    this.sprite = 'images/char-boy.png';
+}
+
+// TODO: Add functionality
+Player.prototype.update = function(dt) {
+}
+
+// Draw the player's character on the screen
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+// Handles the movement for the character as well as checks 
+// for boundaries
+Player.prototype.handleInput = function(playerInput) {
+    if (playerInput === 'left') {
+        if (this.x > 0 ) {
+            this.x -= 50;
+        }
+    } else if (playerInput === 'right') {
+        if (this.x < 400 ) {
+            this.x += 50;
+        }
+    } else if (playerInput === 'up') {
+        if (this.y > 0 ) {
+            this.y -= 40;
+        }
+    } else if (playerInput === 'down') {
+        if (this.y < 380) {
+            this.y += 40;
+        } 
+    }
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
+const allEnemies = [];
+const player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
