@@ -63,21 +63,25 @@ Player.prototype.handleInput = function(playerInput) {
     if (playerInput === 'left') {
         //If it passes, then checks for boundaries
         if (this.x > 0 ) {
-            this.x -= 50;
+            this.x -= 100;
         }
     } else if (playerInput === 'right') {
         if (this.x < 400 ) {
-            this.x += 50;
+            this.x += 100;
         }
     } else if (playerInput === 'up') {
         if (this.y > 0 ) {
-            this.y -= 40;
+            this.y -= 80;
         }
     } else if (playerInput === 'down') {
         if (this.y < 380) {
-            this.y += 40;
+            this.y += 80;
         } 
     }
+}
+
+var enemyCollision = function (enemy) {
+
 }
 
 // Now instantiate your objects.
