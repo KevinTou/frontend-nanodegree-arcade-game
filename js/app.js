@@ -21,6 +21,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 500) {
         this.x = -100;
     }
+    enemyCollision(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -36,7 +37,7 @@ var Player = function() {
     // Default position
     this.x = 200;
     this.y = 380;
-
+    this.score = 0;
     // The image/sprite for our character
     this.sprite = 'images/char-boy.png';
 }
@@ -48,6 +49,8 @@ Player.prototype.update = function(dt) {
     if (this.y < 0) {
         this.x = 200;
         this.y = 380;
+        this.score++;
+        console.log(`You scored! Score: ${this.score}`);
     }
 }
 
@@ -81,9 +84,14 @@ Player.prototype.handleInput = function(playerInput) {
 }
 
 var enemyCollision = function (enemy) {
+    if (player.y === enemy.y && player.x <= enemy.x + 77 && player.x + 77 >= enemy.x) {
+        setTimeout(function() {
+            player.x = 200;
+            player.y = 380;
+        }, 100);
 
+    }
 }
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
