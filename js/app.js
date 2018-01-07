@@ -44,7 +44,7 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 }
 
-// TODO: Add functionality
+// Checks if the player reaches the other side and increases the score when they do
 Player.prototype.update = function(dt) {
     // When the player reaches the end, it will reset the sprite
     // To the default position
