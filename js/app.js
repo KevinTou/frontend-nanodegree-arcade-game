@@ -18,9 +18,11 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
+    // Resets the enemy to the beginning of the row to 'loop'
     if (this.x > 500) {
         this.x = -100;
     }
+    // Constantly checks for collision
     enemyCollision(this);
 };
 
@@ -83,6 +85,7 @@ Player.prototype.handleInput = function(playerInput) {
     }
 }
 
+// Checks when the player and enemy collides, and resets the player when they do
 var enemyCollision = function (enemy) {
     if (player.y === enemy.y && player.x <= enemy.x + 77 && player.x + 77 >= enemy.x) {
         setTimeout(function() {
@@ -99,6 +102,7 @@ var enemyCollision = function (enemy) {
 const player = new Player();
 
 const allEnemies = [];
+// Creates enemies with randomly generated speeds and row to be spawned in
 for (let x = 0; x < 7; x++) {
     allEnemies[x] = new Enemy((Math.floor(Math.random() * 3) * 80) + 60, Math.random() * 200);
 }
