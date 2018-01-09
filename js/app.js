@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
         this.x = -100;
     }
     // Constantly checks for collision
-    this.enemyCollision(this);
+    this.enemyCollision();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,8 +33,8 @@ Enemy.prototype.render = function() {
 };
 
 // Checks when the player and enemy collides, and resets the player when they do
-Enemy.prototype.enemyCollision = function (enemy) {
-    if (player.y === enemy.y && player.x <= enemy.x + 77 && player.x + 77 >= enemy.x) {
+Enemy.prototype.enemyCollision = function () {
+    if (player.y === this.y && player.x <= this.x + 77 && player.x + 77 >= this.x) {
         setTimeout(function() {
             player.resetPosition();
         }, 100);
