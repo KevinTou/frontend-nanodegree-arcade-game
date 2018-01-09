@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
@@ -23,7 +24,7 @@ Enemy.prototype.update = function(dt) {
         this.x = -100;
     }
     // Constantly checks for collision
-    enemyCollision(this);
+    this.enemyCollision(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -31,10 +32,19 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Checks when the player and enemy collides, and resets the player when they do
+Enemy.prototype.enemyCollision = function (enemy) {
+    if (player.y === enemy.y && player.x <= enemy.x + 77 && player.x + 77 >= enemy.x) {
+        setTimeout(function() {
+            player.resetPosition();
+        }, 100);
+
+    }
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
 var Player = function() {
     // Default position
     this.x = 200;
@@ -42,24 +52,26 @@ var Player = function() {
     this.score = 0;
     // The image/sprite for our character
     this.sprite = 'images/char-boy.png';
-}
+};
 
-// Checks if the player reaches the other side and increases the score when they do
+// Not used at the moment
 Player.prototype.update = function(dt) {
-    // When the player reaches the end, it will reset the sprite
-    // To the default position
-    if (this.y < 0) {
-        this.x = 200;
-        this.y = 380;
-        this.score++;
-        console.log(`You scored! Score: ${this.score}`);
-    }
+};
+
+Player.prototype.resetPosition = function() {
+    this.x = 200;
+    this.y = 380;
 }
 
 // Draw the player's character on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
+
+Player.prototype.scoreData = function() {
+    this.score++;
+    document.getElementById("score").innerHTML = `Score: ${this.score}`;
+};
 
 // Handles the movement for the character as well as checks 
 // for boundaries
@@ -83,18 +95,16 @@ Player.prototype.handleInput = function(playerInput) {
             this.y += 80;
         } 
     }
-}
 
-// Checks when the player and enemy collides, and resets the player when they do
-var enemyCollision = function (enemy) {
-    if (player.y === enemy.y && player.x <= enemy.x + 77 && player.x + 77 >= enemy.x) {
-        setTimeout(function() {
-            player.x = 200;
-            player.y = 380;
-        }, 100);
-
+    // Checks if the player reaches the other side and increases the score when they do
+    // When the player reaches the end, it will reset the sprite
+    // To the default position
+    if (this.y < 0) {
+        this.resetPosition();
+        this.scoreData();
     }
-}
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
